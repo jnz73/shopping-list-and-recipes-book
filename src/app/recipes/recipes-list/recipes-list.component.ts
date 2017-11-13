@@ -7,7 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class RecipesListComponent implements OnInit {
-
+  recipies = [];
   constructor() { }
 
   ngOnInit() {
