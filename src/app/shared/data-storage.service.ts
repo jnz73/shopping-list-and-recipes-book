@@ -5,20 +5,28 @@ import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Recipe} from '../recipes/recipe.model';
 import 'rxjs/add/operator/map';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../auth/auth.service';
 
 
 @Injectable()
 export class DataStorageService {
 
-  constructor(private http: HttpClient, private recipeService: RecipeService, private slService: ShoppingListService) {
+  constructor(private http: HttpClient,
+              private recipeService: RecipeService,
+              private slService: ShoppingListService,
+              private authService: AuthService) {
   }
 
   storeRecipes() {
-    return this.http.put('https://ng-recipe-boo.firebaseio.com/recipes.json', this.recipeService.getRecipes());
+    const token = this.authService.getToken();
+
+    return this.http.put('https://ng-recipe-boo.firebaseio.com/recipes.json?auth=' + token, this.recipeService.getRecipes());
   }
 
   getRecipes() {
-    return this.http.get<Recipe[]>('https://ng-recipe-boo.firebaseio.com/recipes.json')
+    const token = this.authService.getToken();
+
+    return this.http.get<Recipe[]>('https://ng-recipe-boo.firebaseio.com/recipes.json?auth=' + token)
       .map(
         (data) => {
           const recipes: Recipe[] = data;
@@ -37,11 +45,15 @@ export class DataStorageService {
   }
 
   storeShoppingList() {
-    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json', this.slService.getIngredients());
+    const token = this.authService.getToken();
+
+    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json?auth=' + token, this.slService.getIngredients());
   }
 
   getShoppingList() {
-    return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json')
+    const token = this.authService.getToken();
+
+    return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json?auth=' + token)
       .subscribe(
         (data) => {
           this.slService.setIngredients(data);
