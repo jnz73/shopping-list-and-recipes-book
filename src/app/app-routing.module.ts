@@ -7,6 +7,7 @@ import {HomeComponent} from './home/home.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule'}, // lazy loading
   {path: 'shopping-list', component: ShoppingListComponent}, // not necessary to extract in another routing module
 
 ];

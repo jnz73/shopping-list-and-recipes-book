@@ -7,8 +7,7 @@ import {AuthGuard} from '../auth/auth-guard.service';
 import {RecipesDetailComponent} from './recipes-detail/recipes-detail.component';
 
 const recipeRoutes: Routes = [
-  {path: 'recipes', component: RecipesComponent, children: [
-
+  {path: '', component: RecipesComponent, children: [ // empty path becouse already declared with lazy loading in app-routing.module.ts
       { path: '', component: RecipeStartComponent},
       { path: 'new', component: RecipeEditComponent, canActivate: [AuthGuard]},
       { path: ':id', component: RecipesDetailComponent},
