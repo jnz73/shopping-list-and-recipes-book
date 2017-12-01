@@ -1,3 +1,5 @@
+// this component contains only the stuff needed in the root of the app
+
 import {Component} from '@angular/core';
 import {DataStorageService} from '../../shared/data-storage.service';
 import {HttpResponse} from '@angular/common/http';
