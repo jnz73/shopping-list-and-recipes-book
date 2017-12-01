@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
@@ -16,7 +16,7 @@ import {SiginComponent} from './auth/sigin/sigin.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import {RecipesModule} from './recipes/recipes.module';
-import {DropDownDirective} from './shared/dropdown.directive';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import {DropDownDirective} from './shared/dropdown.directive';
     ShoppingListComponent,
     ShoppingEditComponent,
     SignupComponent,
-    DropDownDirective,
     SiginComponent
   ],
   imports: [
@@ -34,6 +33,7 @@ import {DropDownDirective} from './shared/dropdown.directive';
     HttpClientModule,
     AppRoutingModule,
     RecipesModule,
+    SharedModule
   ],
   providers: [ShoppingListService, RecipeService, DataStorageService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
