@@ -4,8 +4,7 @@ import {Ingredient} from './ingredient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Recipe} from '../recipes/recipe.model';
 import 'rxjs/add/operator/map';
-import {HttpClient} from '@angular/common/http';
-import {AuthService} from '../auth/auth.service';
+import {HttpClient, HttpRequest} from '@angular/common/http';
 
 
 @Injectable()
@@ -14,19 +13,33 @@ export class DataStorageService {
   constructor(private http: HttpClient,
               private recipeService: RecipeService,
               private slService: ShoppingListService,
-              private authService: AuthService) {
+              ) {
   }
 
   storeRecipes() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
 
-    return this.http.put('https://ng-recipe-boo.firebaseio.com/recipes.json?auth=' + token, this.recipeService.getRecipes());
+    // return this.http.put('https://ng-recipe-boo.firebaseio.com/recipes.json', this.recipeService.getRecipes(),
+    //   {
+    //     observe: 'body',
+    //     params: new HttpParams().set('auth', token)
+    //     // headers: new HttpHeaders().set('', '')
+    //   });
+    const req = new HttpRequest('PUT', 'https://ng-recipe-boo.firebaseio.com/recipes.json', this.recipeService.getRecipes(),
+      {
+        reportProgress: true,
+       // params: new HttpParams().set('auth', token)
+      });
+    return this.http.request(req);
   }
 
   getRecipes() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
 
-    return this.http.get<Recipe[]>('https://ng-recipe-boo.firebaseio.com/recipes.json?auth=' + token)
+    return this.http.get<Recipe[]>('https://ng-recipe-boo.firebaseio.com/recipes.json',
+      {
+        // params: new HttpParams().set('auth', token)
+      })
       .map(
         (recipes) => {
           for (const recipe of recipes) {
@@ -44,15 +57,15 @@ export class DataStorageService {
   }
 
   storeShoppingList() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
 
-    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json?auth=' + token, this.slService.getIngredients());
+    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json', this.slService.getIngredients());
   }
 
   getShoppingList() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
 
-    return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json?auth=' + token)
+    return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json')
       .subscribe(
         (ingredients) => {
           this.slService.setIngredients(ingredients);
