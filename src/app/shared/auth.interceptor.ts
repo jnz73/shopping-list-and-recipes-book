@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('Intercepted', req);
-    const copiedReq = req.clone({
+    const copiedReq = req.clone({ // requests are immutable, hence you must use clone method to edit them
       // headers: req.headers.append('','')
       params: req.params.set('auth', this.authService.getToken())
     });
