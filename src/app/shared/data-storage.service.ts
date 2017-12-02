@@ -28,8 +28,7 @@ export class DataStorageService {
 
     return this.http.get<Recipe[]>('https://ng-recipe-boo.firebaseio.com/recipes.json?auth=' + token)
       .map(
-        (data) => {
-          const recipes: Recipe[] = data;
+        (recipes) => {
           for (const recipe of recipes) {
             if (!recipe['ingredients']) {
               recipe['ingredients'] = [];
@@ -55,8 +54,8 @@ export class DataStorageService {
 
     return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json?auth=' + token)
       .subscribe(
-        (data) => {
-          this.slService.setIngredients(data);
+        (ingredients) => {
+          this.slService.setIngredients(ingredients);
         }
       );
   }
