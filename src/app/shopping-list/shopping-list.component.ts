@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[];
   private subscription: Subscription;
-
+// inject services in the constructor
   constructor(private slService: ShoppingListService) {
   }
 

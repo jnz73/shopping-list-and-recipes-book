@@ -4,6 +4,8 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {ShoppingListComponent} from './shopping-list/shopping-list.component';
 import {HomeComponent} from './core/home/home.component';
 
+// this file contains the routing of the main module
+// other routings are in the other modules
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},

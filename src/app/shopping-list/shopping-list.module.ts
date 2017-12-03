@@ -5,12 +5,15 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
+  // components part of this module
   declarations: [
     ShoppingListComponent,
     ShoppingEditComponent
   ],
   imports: [
+    // basic angular functionality (ngIf...)
     CommonModule,
+    // angular forms
     FormsModule,
   ]
 })

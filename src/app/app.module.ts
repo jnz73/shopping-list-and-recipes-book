@@ -9,10 +9,14 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
 import {CoreModule} from './core/core.module';
 
+
+// this file contains all the modules imported that makes the app and is the root of the app
 @NgModule({
+  // name of the component
   declarations: [
     AppComponent
   ],
+  // modules imported
   imports: [
     BrowserModule, // contains CommonModule
     HttpClientModule,
@@ -22,7 +26,9 @@ import {CoreModule} from './core/core.module';
     AuthModule,
     CoreModule
   ],
+  // services
   providers: [],
+  // where to start the app
   bootstrap: [AppComponent]
 })
 export class AppModule {
