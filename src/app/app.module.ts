@@ -8,6 +8,8 @@ import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
 import {CoreModule} from './core/core.module';
+import {StoreModule} from '@ngrx/store';
+import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers';
 
 
 // this file contains all the modules imported that makes the app and is the root of the app
@@ -24,7 +26,11 @@ import {CoreModule} from './core/core.module';
     SharedModule,
     ShoppingListModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    // ngRx import
+    StoreModule.forRoot({
+      shoppingList: shoppingListReducer // ngRx inport for eager module
+    })
   ],
   // services
   providers: [],

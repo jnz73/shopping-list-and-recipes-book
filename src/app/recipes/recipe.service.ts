@@ -1,11 +1,10 @@
 import {Recipe} from './recipe.model';
-import {Injectable} from '@angular/core';
 import {Ingredient} from '../shared/ingredient.model';
-import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Subject} from 'rxjs/Subject';
 
 
-@Injectable()
+
+
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
@@ -21,9 +20,7 @@ export class RecipeService {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Spaghettata.JPG/270px-Spaghettata.JPG',
       [new Ingredient('lettuce', 2), new Ingredient('tomato', 3)])];
 
-  constructor(private slService: ShoppingListService) {
 
-  }
 
   getRecipes() {
     return this.recipes.slice();
@@ -31,10 +28,6 @@ export class RecipeService {
 
   getRecipe(id: number) {
     return this.recipes[id];
-  }
-
-  addIngredientsToShoppingList(ingredients: Ingredient[]) {
-    this.slService.addIngredients(ingredients);
   }
 
   addRecipe(recipe: Recipe) {

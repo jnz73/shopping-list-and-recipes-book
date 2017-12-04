@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {RecipeService} from '../recipes/recipe.service';
 import {Ingredient} from './ingredient.model';
-import {ShoppingListService} from '../shopping-list/shopping-list.service';
 import {Recipe} from '../recipes/recipe.model';
 import 'rxjs/add/operator/map';
 import {HttpClient, HttpRequest} from '@angular/common/http';
+import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducers';
+import {Store} from '@ngrx/store';
 
 
 @Injectable()
@@ -12,8 +14,7 @@ export class DataStorageService {
 
   constructor(private http: HttpClient,
               private recipeService: RecipeService,
-              private slService: ShoppingListService,
-              ) {
+              private store: Store<fromShoppingList.AppState>) {
   }
 
   storeRecipes() {
@@ -28,7 +29,7 @@ export class DataStorageService {
     const req = new HttpRequest('PUT', 'https://ng-recipe-boo.firebaseio.com/recipes.json', this.recipeService.getRecipes(),
       {
         reportProgress: true,
-       // params: new HttpParams().set('auth', token)
+        // params: new HttpParams().set('auth', token)
       });
     return this.http.request(req);
   }
@@ -58,8 +59,9 @@ export class DataStorageService {
 
   storeShoppingList() {
     // const token = this.authService.getToken();
-
-    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json', this.slService.getIngredients());
+    return this.http.put('https://ng-recipe-boo.firebaseio.com/shopping-list.json',
+      this.store.dispatch(new ShoppingListActions.ReturnIngredients())
+    );
   }
 
   getShoppingList() {
@@ -68,7 +70,7 @@ export class DataStorageService {
     return this.http.get<Ingredient[]>('https://ng-recipe-boo.firebaseio.com/shopping-list.json')
       .subscribe(
         (ingredients) => {
-          this.slService.setIngredients(ingredients);
+          this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
         }
       );
   }
