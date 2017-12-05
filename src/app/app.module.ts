@@ -10,6 +10,8 @@ import {AuthModule} from './auth/auth.module';
 import {CoreModule} from './core/core.module';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from './store/app.reducer';
+import {EffectsModule} from '@ngrx/effects';
+import {AuthEffects} from './auth/store/auth.effects';
 
 
 // this file contains all the modules imported that makes the app and is the root of the app
@@ -28,7 +30,8 @@ import {reducers} from './store/app.reducer';
     AuthModule,
     CoreModule,
     // ngRx import
-    StoreModule.forRoot(reducers) // ngRx inport of the app reducers bundle (pass as parameter the constant not a object)
+    StoreModule.forRoot(reducers), // ngRx inport of the app reducers bundle (pass as parameter the constant not a object)
+  EffectsModule.forRoot([AuthEffects])// ngrx/effects inport and registration
   ],
   // services
   providers: [],
