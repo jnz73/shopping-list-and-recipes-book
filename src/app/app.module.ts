@@ -9,7 +9,7 @@ import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
 import {CoreModule} from './core/core.module';
 import {StoreModule} from '@ngrx/store';
-import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers';
+import {reducers} from './store/app.reducer';
 
 
 // this file contains all the modules imported that makes the app and is the root of the app
@@ -28,9 +28,7 @@ import {shoppingListReducer} from './shopping-list/store/shopping-list.reducers'
     AuthModule,
     CoreModule,
     // ngRx import
-    StoreModule.forRoot({
-      shoppingList: shoppingListReducer // ngRx inport for eager module
-    })
+    StoreModule.forRoot(reducers) // ngRx inport of the app reducers bundle (pass as parameter the constant not a object)
   ],
   // services
   providers: [],

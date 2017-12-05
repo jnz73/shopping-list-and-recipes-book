@@ -3,18 +3,18 @@ import {Ingredient} from '../../shared/ingredient.model';
 
 
 // reducers will provide a new state (state is immutable) through actions
+// they take a state in and they return the new state
 
-export interface AppState {
-  shoppingList: State;
-}
 
+// interfaces to model state
 export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;
   editedIngredientIndex: number;
 }
 
-const initialState: State = { // this is an object containing an array of ingredients
+// this is an object containing an array of ingredients for the initial state
+const initialState: State = {
   ingredients: [
     new Ingredient('apples', 5),
     new Ingredient('tomatoes', 7),

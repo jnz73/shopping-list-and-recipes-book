@@ -5,7 +5,7 @@ import {Recipe} from '../recipes/recipe.model';
 import 'rxjs/add/operator/map';
 import {HttpClient, HttpRequest} from '@angular/common/http';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
-import * as fromShoppingList from '../shopping-list/store/shopping-list.reducers';
+import * as fromApp from '../store/app.reducer';
 import {Store} from '@ngrx/store';
 
 
@@ -14,7 +14,7 @@ export class DataStorageService {
 
   constructor(private http: HttpClient,
               private recipeService: RecipeService,
-              private store: Store<fromShoppingList.AppState>) {
+              private store: Store<fromApp.AppState>) {
   }
 
   storeRecipes() {
