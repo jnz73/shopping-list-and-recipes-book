@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {environment} from '../environments/environment';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -12,6 +13,8 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from './store/app.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {AuthEffects} from './auth/store/auth.effects';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 
 // this file contains all the modules imported that makes the app and is the root of the app
@@ -22,19 +25,24 @@ import {AuthEffects} from './auth/store/auth.effects';
   ],
   // modules imported
   imports: [
-    BrowserModule, // contains CommonModule
+    // contains CommonModule:
+    BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    // ngRx import
-    StoreModule.forRoot(reducers), // ngRx inport of the app reducers bundle (pass as parameter the constant not a object)
-  EffectsModule.forRoot([AuthEffects])// ngrx/effects inport and registration
+    // ngRx import:
+    // ngRx inport of the app reducers bundle (pass as parameter the constant not a object):
+    StoreModule.forRoot(reducers),
+    // ngrx/effects inport and registration:
+    EffectsModule.forRoot([AuthEffects]),
+    // ngrx for routes:
+    StoreRouterConnectingModule,
+    // to see state at runtime to use during development with redux extension in chrome:
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  // services
-  providers: [],
   // where to start the app
   bootstrap: [AppComponent]
 })
