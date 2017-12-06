@@ -15,6 +15,7 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     // angular forms
     FormsModule,
+
   ]
 })
 export class ShoppingListModule {}

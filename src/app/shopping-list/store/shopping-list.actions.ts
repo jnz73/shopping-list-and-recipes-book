@@ -10,6 +10,8 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const RETURN_INGREDIENTS = 'RETURN_INGREDIENTS';
 export const START_EDIT = 'START_EDIT';
 export const STOP_EDIT = 'STOP_EDIT';
+export const STORE_INGREDIENTS = 'STORE_INGREDIENTS';
+export const FETCH_INGREDIENTS = 'FETCH_INGREDIENTS';
 
 // actions will tell different possible change of state
 // class must implement the Action interface
@@ -52,6 +54,13 @@ export class StopEdit implements Action {
 export class ReturnIngredients implements Action {
   readonly type = RETURN_INGREDIENTS;
 }
+export class StoreIngredients implements Action {
+  readonly type = STORE_INGREDIENTS;
+}
+
+export class FetchIngredients implements Action {
+  readonly type = FETCH_INGREDIENTS;
+}
 
 
 // bundle all the actions in an export
@@ -61,4 +70,6 @@ export type ShoppingListActions = AddIngredient
   | DeleteIngredient
   | StartEdit
   | ReturnIngredients
-  | StopEdit;
+  | StopEdit
+  | StoreIngredients
+  | FetchIngredients;

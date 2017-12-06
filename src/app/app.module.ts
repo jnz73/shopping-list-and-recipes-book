@@ -37,7 +37,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     // ngRx inport of the app reducers bundle (pass as parameter the constant not a object):
     StoreModule.forRoot(reducers),
     // ngrx/effects inport and registration:
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ShoppingListModule]),
     // ngrx for routes:
     StoreRouterConnectingModule,
     // to see state at runtime to use during development with redux extension in chrome (also routes with the import above):
