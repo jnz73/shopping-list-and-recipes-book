@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Recipe} from '../recipe.model';
 import {RecipeService} from '../recipe.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import * as fromApp from '../../store/app.reducer';
+import {Observable} from 'rxjs/Observable';
+import * as fromRecipes from '../store/recipes.reducers';
+import * as RecipesActions from '../store/recipes.actions';
 
 
 @Component({
@@ -14,25 +15,31 @@ import * as fromApp from '../../store/app.reducer';
   encapsulation: ViewEncapsulation.None
 })
 export class RecipesDetailComponent implements OnInit {
-  recipe: Recipe;
+  recipeState: Observable<fromRecipes.State>;
   id: number;
 
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute, private router: Router,
-              private store: Store<fromApp.AppState>) {
+              private store: Store<fromRecipes.FeatureState>) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.recipe = this.recipeService.getRecipe(this.id);
+        this.recipeState = this.store.select('recipes');
       }
     );
   }
 
   onAddToShoppingList() {
-    this.store.dispatch(new ShoppingListActions.AddIngredients(this.recipe.ingredients));
+    this.store.select('recipes')
+      .take(1)
+      .subscribe((recipesState: fromRecipes.State) => {
+      this.store.dispatch(new ShoppingListActions.AddIngredients(
+        recipesState.recipes[this.id].ingredients)
+      );
+    });
 
   }
 
@@ -41,7 +48,7 @@ export class RecipesDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
+    this.store.dispatch(new RecipesActions.DeleteRecipe(this.id));
     this.router.navigate(['/recipes']);
   }
 }

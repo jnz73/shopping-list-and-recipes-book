@@ -40,7 +40,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     EffectsModule.forRoot([AuthEffects]),
     // ngrx for routes:
     StoreRouterConnectingModule,
-    // to see state at runtime to use during development with redux extension in chrome:
+    // to see state at runtime to use during development with redux extension in chrome (also routes with the import above):
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   // where to start the app

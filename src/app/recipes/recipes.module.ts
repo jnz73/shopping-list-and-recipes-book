@@ -10,6 +10,10 @@ import {RecipesListComponent} from './recipes-list/recipes-list.component';
 import {RecipesRoutingModule} from './recipes-routing.module';
 import {RecipeItemComponent} from './recipes-list/recipe-item/recipe-item.component';
 import {SharedModule} from '../shared/shared.module';
+import {StoreModule} from '@ngrx/store';
+import {recipeReducer} from './store/recipes.reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {RecipesEffects} from './store/recipes.effects';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,10 @@ import {SharedModule} from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     RecipesRoutingModule,
-    SharedModule
+    SharedModule,
+    // ngrx import for lazy loading forFeature: parameters name of the feature and reducers
+    StoreModule.forFeature('recipes', recipeReducer),
+    EffectsModule.forFeature([RecipesEffects])
   ]
 
 })

@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Observable';
 import * as fromApp from '../../store/app.reducer';
 import * as fromAuth from '../../auth/store/auth.reducers';
 import * as AuthAction from '../../auth/store/auth.actions';
+import * as RecipesActions from '../../recipes/store/recipes.actions';
 import {Router} from '@angular/router';
 
 @Component({
@@ -26,12 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onSaveData() {
-    this.dataStorageService.storeRecipes()
-      .subscribe(
-        (response) => {
-          console.log(response);
-        }
-      );
+    this.store.dispatch(new RecipesActions.StoreRecipes());
     this.dataStorageService.storeShoppingList()
       .subscribe(
         (response: HttpEvent<Ingredient[]>) => {
@@ -41,7 +37,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onGetData() {
-    this.dataStorageService.getRecipes();
+    this.store.dispatch(new RecipesActions.FetchRecipes());
     this.dataStorageService.getShoppingList();
   }
 
