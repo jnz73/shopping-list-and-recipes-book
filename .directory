@@ -1,5 +1,8 @@
 [Dolphin]
-Timestamp=2018,2,6,22,23,7
+Timestamp=2018,4,26,21,33,1
 Version=4
 ViewMode=1
 VisibleRoles=Details_text,Details_size,Details_modificationtime,Details_type,CustomizedDetails
+
+[Settings]
+HiddenFilesShown=true
